@@ -1,4 +1,4 @@
-Running ACA-Py with the acapy-resolver-github Plugin
+Running ACA-Py with the acapy-resolver-web Plugin
 ======================================
 
 ## Quickstart
@@ -6,7 +6,7 @@ Running ACA-Py with the acapy-resolver-github Plugin
 To build the container:
 
 ```sh
-$ docker build --tag acapy-resolver-github .
+$ docker build --tag acapy-resolver-web .
 ```
 
 To start an agent using the default configuration:

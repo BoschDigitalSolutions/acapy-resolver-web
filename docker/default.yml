@@ -1,4 +1,4 @@
-label: Aries Cloud Agent + Github Resolver
+label: Aries Cloud Agent + did:web Resolver
 
 # Admin
 admin: [0.0.0.0, 3001]
@@ -6,7 +6,7 @@ admin-insecure-mode: true
 
 # Load toolbox plugin
 plugin:
-  - acapy_resolver_github
+  - acapy_resolver_web
 
 # Transport
 inbound-transport:

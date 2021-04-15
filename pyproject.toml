@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "acapy_resolver_github"
+name = "acapy_resolver_web"
 version = "0.1.0"
-description = "ACA-Py DID Resolver for Github DID Method"
-authors = ["Daniel Bluhm <dbluhm@pm.me>"]
+description = "ACA-Py DID Resolver for Web DID Method"
+authors = ["Dominic Woerner <dominic.woerner2@ch.bosch.com>"]
 license = "Apache-2.0"
 
 [tool.poetry.dependencies]

@@ -1,4 +1,4 @@
-"""Github Resolver."""
+"""Web Resolver."""
 
 import json
 from typing import Sequence
@@ -14,28 +14,43 @@ from aries_cloudagent.resolver.base import (
 from pydid import DID
 
 
-class GithubResolver(BaseDIDResolver):
-    """Github Resolver."""
+class WebResolver(BaseDIDResolver):
+    """Web Resolver."""
 
     def __init__(self):
         super().__init__(ResolverType.NATIVE)
 
+    def __transform_to_url(self, did):
+        """
+        Transform did to url according to
+        https://w3c-ccg.github.io/did-method-web/#read-resolve
+        """
+
+        as_did = DID(did)
+        method_specific_id = as_did.method_specific_id
+        if ":" in method_specific_id:
+            # contains path
+            url = method_specific_id.replace(":", "/")
+        else:
+            # bare domain needs /.well-known path
+            url = method_specific_id + "/.well-known"
+
+        return "https://" + url + "/did.json"
+
     @property
     def supported_methods(self) -> Sequence[str]:
         """Return list of supported methods."""
-        return ["github"]
+        return ["web"]
 
     async def setup(self, context):
-        """Setup the github resolver (none required)."""
+        """Setup the did:web resolver (none required)."""
 
     async def _resolve(self, profile: Profile, did: str) -> dict:
-        """Resolve github DIDs."""
-        as_did = DID(did)
+        """Resolve did:web DIDs."""
+
+        url = self.__transform_to_url(did)
         async with aiohttp.ClientSession() as session:
-            async with session.get(
-                f"https://raw.githubusercontent.com/{as_did.method_specific_id}"
-                "/ghdid/master/index.jsonld"
-            ) as response:
+            async with session.get(url) as response:
                 if response.status == 200:
                     try:
                         return json.loads(await response.text())

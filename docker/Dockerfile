@@ -7,16 +7,16 @@ RUN poetry config virtualenvs.create false
 RUN ln -s $(pyenv prefix)/lib/python3.6/site-packages site-packages
 
 USER root
-COPY acapy_resolver_github acapy-resolver-github/acapy_resolver_github
-COPY README.md acapy-resolver-github
-COPY setup.py acapy-resolver-github
-COPY pyproject.toml acapy-resolver-github
-COPY poetry.lock acapy-resolver-github
+COPY acapy_resolver_web acapy-resolver-web/acapy_resolver_web
+COPY README.md acapy-resolver-web
+COPY setup.py acapy-resolver-web
+COPY pyproject.toml acapy-resolver-web
+COPY poetry.lock acapy-resolver-web
 COPY docker/default.yml .
-RUN chown -R indy:indy acapy-resolver-github
+RUN chown -R indy:indy acapy-resolver-web
 USER $user
 
-RUN cd acapy-resolver-github; poetry install --no-dev
+RUN cd acapy-resolver-web; poetry install --no-dev
 RUN pip3 install -I --no-cache git+https://github.com/hyperledger/aries-cloudagent-python.git@main
 
 ENTRYPOINT ["/bin/bash", "-c", "aca-py \"$@\"", "--"]

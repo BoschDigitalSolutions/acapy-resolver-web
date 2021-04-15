@@ -1,1 +1,1 @@
-# Example ACA-Py DID Resolver Plugin for did:github
+# ACA-Py DID Resolver Plugin for did:web
